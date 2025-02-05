@@ -1,10 +1,7 @@
 package com.example.Practicing.Controller;
 
 import com.example.Practicing.Model.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -34,6 +31,27 @@ public class StudentController {
             }
         }
        return null;
+    }
+    @PostMapping("/newStudent")
+    public String newStudent(@RequestBody Student student){
+        try{
+            students.add(student);
+            return "you think Student added successfully";
+        }catch(Exception e ){
+            e.printStackTrace();
+        }
+        return "Student didnt added";
+    }
+
+    @PutMapping("update/{id}")
+    public Student updateIdname (@RequestBody Student student, @PathVariable int id){
+        for (Student s : students){
+            if (s.getId()==id){
+                s.setName(student.getName());
+                return s;
+            }
+        }
+        return null;
     }
 }
 
